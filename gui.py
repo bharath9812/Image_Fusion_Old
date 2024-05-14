@@ -244,8 +244,13 @@ class ImageFusionApp(QMainWindow):
             input_images = [img1, img2]
             fusion_instance = laplace.Fusion(input_images)
             fused_image = fusion_instance.fuse()
+            fused_image = np.clip(fused_image, 0, 255).astype(np.uint8)
+
         elif method == 2:
-            fused_image = vgg_cnn.predict_fused_image(img1, img2)
+            fused_image = vgg_cnn.predict_fused_image(self.image_path1, self.image_path2)
+            self.display_vgg_image(fused_image)  # Call separate display function for VGG19
+            return
+
         elif method == 3:
             fused_image = pca_ihs.image_fusion_pca(img1,img2, num_components=3)
         elif method == 4:
@@ -259,13 +264,14 @@ class ImageFusionApp(QMainWindow):
 
 
 
-    def dwt_fusion(self, img1, img2):
-        return cv2.addWeighted(img1, 0.5, img2, 0.5, 0)
+    # def dwt_fusion(self, img1, img2):
+    #     return cv2.addWeighted(img1, 0.5, img2, 0.5, 0)
 
-    def laplacian_fusion(self, img1, img2):
-        return cv2.addWeighted(img1, 0.5, img2, 0.5, 0)
+    # def laplacian_fusion(self, img1, img2):
+    #     return cv2.addWeighted(img1, 0.5, img2, 0.5, 0)
 
     def display_image(self, fused_image):
+        self.output_label.clear()
         if len(fused_image.shape) == 2:
             fused_image = cv2.cvtColor(fused_image, cv2.COLOR_GRAY2RGB)
 
@@ -275,7 +281,35 @@ class ImageFusionApp(QMainWindow):
         pixmap = QPixmap.fromImage(qImg)
         self.output_label.setPixmap(pixmap.scaled(500, 500, Qt.KeepAspectRatio))
 
-    
+    def display_vgg_image(self, fused_image):
+        self.output_label.clear()  # Clear the output label
+
+        # print(f"Original fused image shape: {fused_image.shape}")
+
+        # Check if the shape has an extra dimension
+        if len(fused_image.shape) == 4 and fused_image.shape[0] == 1:
+            fused_image = np.squeeze(fused_image, axis=0)
+        elif len(fused_image.shape) == 3 and fused_image.shape[2] == 1:
+            fused_image = np.squeeze(fused_image, axis=2)
+
+        # print(f"Squeezed fused image shape: {fused_image.shape}")
+        # print(f"Fused image data range before normalization: min {fused_image.min()}, max {fused_image.max()}")
+
+        # Normalize the image to the full range [0, 255]
+        fused_image = (fused_image - fused_image.min()) / (fused_image.max() - fused_image.min()) * 255.0
+        fused_image = np.clip(fused_image, 0, 255).astype(np.uint8)
+
+        # print(f"Fused image data range after normalization: min {fused_image.min()}, max {fused_image.max()}")
+
+        height, width = fused_image.shape
+
+        # Ensure the fused image is contiguous in memory
+        fused_image = np.ascontiguousarray(fused_image)
+
+        # Create QImage from the numpy array
+        qImg = QImage(fused_image.data, width, height, QImage.Format_Grayscale8)
+        pixmap = QPixmap.fromImage(qImg)
+        self.output_label.setPixmap(pixmap.scaled(500, 500, Qt.KeepAspectRatio))
         
     def save_image(self):
         options = QFileDialog.Options()
