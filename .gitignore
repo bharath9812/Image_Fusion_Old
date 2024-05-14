@@ -17,7 +17,7 @@
 /fusion_model.keras
 /Image Fusion WT.ipynb
 /DWT_no_reference.ipynb
-/DWT_reference_image.ipynb
+# /DW_reference_image.ipynb
 /r5_latest.ipynb
 /unet_model2.h5
 /unet_model2.keras
@@ -41,3 +41,4 @@ vgg19.py
 tempCodeRunnerFile.py
 laplace_region_based_multi_resolution.py
 .gitignore
+DWT_reference_image.ipynb
