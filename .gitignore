@@ -1,6 +1,8 @@
 # /Users/chintubharath/Documents/sdp/
 /Imfusion-main
+/no_need
 /outputs
+/__pycache__
 /unet_may.keras
 /unet_may.h5
 /y_train.npy
@@ -25,3 +27,11 @@ medical1.png
 medical2.png
 y_val.npy
 unet_may.ipynb
+/resnet.ipynb
+/gui_old.txt
+/fusion.py
+/fusion_methods.py
+/gan_laplacian.ipynb
+/resnet_laplacian.py
+/unet_may_v2.ipynb
+/main2.py
