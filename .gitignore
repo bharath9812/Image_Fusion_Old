@@ -1,6 +1,8 @@
 # /Users/chintubharath/Documents/sdp/
+/no_need
 /Imfusion-main
 /no_need
+/gui_design
 /outputs
 /__pycache__
 /unet_may.keras
@@ -37,8 +39,14 @@ unet_may.ipynb
 /unet_may_v2.ipynb
 /main2.py
 .gitignore
-vgg19.py
 tempCodeRunnerFile.py
 laplace_region_based_multi_resolution.py
 .gitignore
 DWT_reference_image.ipynb
+tempCodeRunnerFile.py
+laplacian_and_resnet.ipynb
+notebook files/adv_laplace.ipynb
+notebook files/SDP_v2.ipynb
+Image_Fusion_Metrics_Concise.xlsx
+notebook files/Adv_WT.ipynb
+notebook files/Img_Fusion_PCA_IHS_NMF.ipynb
