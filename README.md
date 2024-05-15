@@ -38,7 +38,7 @@ A graphical user interface (GUI) is also provided to facilitate easy use of thes
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/yourusername/image-fusion.git
+   git clone https://github.com/bharath9812/Image_Fusion
    cd image-fusion
    ```
 
